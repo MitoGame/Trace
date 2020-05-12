@@ -5,28 +5,53 @@ using DG.Tweening;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10f;
+    float speed = 10f;
     float distance;
     Vector3 target;
     List<GameObject> dolls;
-    public Vector3 t;
+    Vector3 t;
+    public MeshRenderer mr;
+    int color_code;
 
-    public void setBullet(float distance, Vector3 target)
+    public void setBullet(float distance, Vector3 target, int colorCode)
     {
+        color_code = colorCode;
+        resetMat();
         t=target;
         this.distance = distance;
         this.target = target;
         Vector3 heading = target - transform.position;
         heading = heading/(heading.magnitude);
         transform.rotation = Quaternion.LookRotation(heading);
-        transform.DOMove(target, distance/speed);
-        StartCoroutine(selfDestory(distance/speed));
+        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        //StartCoroutine(selfDestory(distance/speed));
     }
 
 
-    IEnumerator selfDestory(float time)
+    IEnumerator selfDestory()
     {
-        yield return new WaitForSeconds(time);
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
     }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.GetComponent<dye>()!=null)
+        {
+            Debug.Log(other.gameObject.name);
+            other.gameObject.GetComponent<dye>().EvokeDye(color_code);
+        }
+        StartCoroutine(selfDestory());
+    }
+
+
+    void resetMat()
+    {
+        Material[] mat = mr.materials;
+        mat[0] = ColorManager.LoadMaterial(color_code);
+        mr.materials = mat;
+    }
+
+
 }

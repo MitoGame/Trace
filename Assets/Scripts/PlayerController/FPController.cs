@@ -9,13 +9,14 @@ public class FPController : MonoBehaviour
     CharacterController controller;
 
     [Header("Gravity and Jump Settings")]
-    float velocityY;
+    public float velocityY;
     bool isGround;
     public Transform groundDetect;
     public float groundDistance;
     public float gravityScale;
     public float jumpHeight;
     public LayerMask groundLayer;
+    
 
     void Awake()
     {
@@ -39,6 +40,7 @@ public class FPController : MonoBehaviour
 
     void Update()
     {
+        tapCheck();
         jumpAndGravity();
         float forward = Input.GetAxis("Vertical");
         float Rightward = Input.GetAxis("Horizontal");
@@ -48,5 +50,37 @@ public class FPController : MonoBehaviour
         dir += velocityY * Vector3.up * Time.deltaTime;
         controller.Move(dir);   
         //transform.position += dir;
+    }
+
+    public GameObject currentObject;
+    public LayerMask tapLayer;
+
+    void tapCheck()
+    {
+        bool isTap = Physics.CheckSphere(groundDetect.position, groundDistance, tapLayer);
+        if(isTap)
+        {
+            if(currentObject == null)
+                return;
+            currentObject.GetComponent<tap>().evokeTap();
+        }
+        else
+        {
+            if(currentObject != null)
+            {
+                currentObject.GetComponent<tap>().disableTap();
+                currentObject = null;
+            }
+            
+        }
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.gameObject.tag == "tap" && currentObject != hit.gameObject)
+        {
+            Debug.Log("get tap " + hit.gameObject.name);
+            currentObject = hit.gameObject;
+        }
     }
 }

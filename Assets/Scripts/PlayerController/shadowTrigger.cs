@@ -20,8 +20,8 @@ public class shadowTrigger : MonoBehaviour
     {
         Vector3 gunPos = FindObjectOfType<GunControll>().shootPos.position;
         Bullet temp = (Instantiate(Resources.Load("bullet"), transform.position, Quaternion.identity) as GameObject).GetComponent<Bullet>();
-        temp.speed = 70f;
+        //temp.speed = 70f;
         float distance = (gunPos - transform.position).magnitude;
-        temp.setBullet(distance, gunPos);
+        temp.setBullet(distance, gunPos, 1);
     }
 }

@@ -33,4 +33,11 @@ public class MathTool
     {
         return a?1f:-1f;
     }
+
+    public static float planeDistance(Vector3 a, Vector3 b)
+    {
+        a.y=0;
+        b.y=0;
+        return (a-b).magnitude;
+    }
 }

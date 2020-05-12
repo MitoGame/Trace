@@ -11,6 +11,8 @@ public class GunControll : MonoBehaviour
     public float range = 100f;
     public LayerMask shootableLayer;
     public Transform shootPos;
+    int gunColor = 1;
+    public MeshRenderer mr;
 
     void Awake()
     {
@@ -35,6 +37,11 @@ public class GunControll : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R))
         {
             resetAllDoll();
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            ChangeMaterial();
         }
     }
     void resetAllDoll()
@@ -76,10 +83,25 @@ public class GunControll : MonoBehaviour
             target = FPSCam.transform.position + distance * FPSCam.transform.forward;
         }
         Bullet temp = (Instantiate(Resources.Load("bullet"), shootPos.position, Quaternion.identity) as GameObject).GetComponent<Bullet>();
-        temp.setBullet(distance, target);
+        temp.setBullet(distance, target, gunColor);
         //if(hit.distance != 0f)
         //{
         //    Instantiate(Resources.Load("shadow"), hit.point, Quaternion.identity);
         //}
+    }
+
+    void ChangeMaterial()
+    {
+        gunColor++;
+        if(gunColor > 4)
+            gunColor = 1;
+        resetMat();
+    }
+
+    void resetMat()
+    {
+        Material[] mat = mr.materials;
+        mat[0] = ColorManager.LoadMaterial(gunColor);
+        mr.materials = mat;
     }
 }

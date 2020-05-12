@@ -4,47 +4,81 @@ using UnityEngine;
 
 public class tap : MonoBehaviour
 {
-    public GameObject targetbox;
-    public Door targetdoor;
 
-    void Start()
+    public GameObject coreTap;
+    Vector3 boxPos = new Vector3(1f,.2f,-1f);
+    Vector3 halfEx = new Vector3(.7f, .045f, .7f);
+    public int colorCode;
+    public MeshRenderer dyeMesh;
+    public bool state = false;
+
+    List<Collision> touchingObject = new List<Collision>();
+
+    void Awake()
+    {
+        GetComponent<dye>().onDyeEvoke += setColor;
+    }
+
+    public void evokeTap()
+    {
+        if(state)
+            return;
+        state = true;
+        if(colorCode == 0)
+            return;
+        ColorManager.instance.colorEvoke(colorCode);
+    }
+
+    public void disableTap()
+    {
+        if(!state)
+            return;
+        state = false;
+        if(colorCode == 0)
+            return;
+        ColorManager.instance.colorDisable(colorCode);
+    }
+
+    public void setColor(int code)
     {
         
+        if(state)
+        {
+            if(colorCode != 0)
+                ColorManager.instance.colorDisable(colorCode);
+            ColorManager.instance.colorEvoke(code);
+        }
+        dyeMesh.material = ColorManager.LoadMaterial(code);
+        colorCode = code;
+            
     }
 
     void Update()
     {
-        
-        bool to_open = false;
-        Vector3 player = FindObjectOfType<FPController>().gameObject.transform.position;
-        if(near(player)){
-            to_open = true;
-        }
-        if(!to_open && near(targetbox.transform.position)){
-            to_open = true;
-        }
-        if(!to_open && FindObjectOfType<Recorder>().exist){
-            DollControl[] dolls = FindObjectsOfType<DollControl>();
-            foreach(DollControl doll in  dolls){
-                Vector3 doll_pos = doll.gameObject.transform.position;
-                if(near(doll_pos)){
-                    to_open = true;
-                    break;
-                }
-            } 
-        }
-        if(to_open){
-            targetdoor.setopen();
-            
-        }else{
-            targetdoor.setclose();
-        }
+        if(touchingObject.Count > 0 || FindObjectOfType<FPController>().currentObject == gameObject)
+            evokeTap();
+        else
+            disableTap();
     }
 
-
-    bool near(Vector3 a)
+    private void OnCollisionEnter(Collision Other)
     {
-        Vector3 b = transform.position;
-        return (a - b).magnitude < 4;
+        //Debug.Log(Other.gameObject.name);
+
+        if(Other.gameObject.tag == "bullet" || Other.gameObject.tag == "Ground")
+            return;
+        foreach(var a in touchingObject)
+        {
+            if(Other == a)
+                return;
+        }
+        touchingObject.Add(Other);
     }
+
+    private void OnCollisionExit(Collision Other)
+    {
+        touchingObject.Remove(Other);
+    }
+
+
 }
