@@ -6,34 +6,64 @@ using UnityEngine;
 public class ColorManager : MonoBehaviour
 {
     public static ColorManager instance;
+    static int colorNum=4;
+    public static int NUM{get{return colorNum;}}
 
     public static Dictionary<int,string> ColorPath
         = new Dictionary<int,string>{
-            {0,"emission/default"},
+            {0,"emission/white"},
             {1,"emission/blue"},
             {2,"emission/red"},
-            {3,"emission/green"},
-            {4,"emission/yellow"}
+            {3,"emission/yellow"},
+            {4,"emission/green"}
         };
     
-    Dictionary<int, bool> colorState;
+    public static Dictionary<int,string> UnlitColorPath
+        = new Dictionary<int,string>{
+            {0,"emission/grey"},
+            {1,"emission/unlit/blue"},
+            {2,"emission/unlit/red"},
+            {4,"emission/unlit/green"},
+            {3,"emission/unlit/yellow"}
+        };
+    
+    static float[,] colorPalatte = new float[,]{
+        {191f/255f, 191f/255f, 191f/255f, 1.5f},
+        {0f, 47/255f, 227f/255f, 3.5f},
+        {203f/255f, 0f/255f, 0f/255f, 4f},
+        {238f/255f, 58f/255f, 14f/255f, 3.5f},
+        {33f/255f, 230f/255f, 5f/255f, 3.2f}
+    };
 
+    public static Color PalatteToColor(int code)
+    {
+        Color tmp = Color.white;
+        tmp.r = colorPalatte[code, 0];
+        tmp.g = colorPalatte[code, 1];
+        tmp.b = colorPalatte[code, 2];
+        tmp = tmp * Mathf.Pow(2, colorPalatte[code, 3]);
+        tmp.a = 1f;
+        return tmp;
+    }
+    
+    public Dictionary<int, bool> colorState;
 
-    public Dictionary<int,Color> ColorDic;
     
 
-    public static Material LoadMaterial(int code)
+    public static Material LoadMaterial(int code, bool lit)
     {
-        return Resources.Load<Material>(ColorPath[code]);
+        return Resources.Load<Material>(lit? ColorPath[code] : UnlitColorPath[code]);
     }
 
     void initiateColor()
     {
         colorState = new Dictionary<int, bool>();
-        ColorDic = new Dictionary<int, Color>();
         for(int i=0;i<=4;i++)
         {
-            ColorDic.Add(i, LoadMaterial(i).GetColor("_EmissiveColor"));
+            Color tmp = PalatteToColor(i);
+            //Debug.Log(i + " " + tmp);
+            LoadMaterial(i, true).SetColor("_EmissiveColor", tmp);
+            LoadMaterial(i, false).SetColor("_EmissiveColor", tmp);
             colorState.Add(i, false);
         }
     }
@@ -44,13 +74,13 @@ public class ColorManager : MonoBehaviour
 
     public void colorEvoke(int id)
     {
-        Debug.Log("color evoke " + id);
-        if(colorState[id])
-            return;
-        colorState[id] = true;
-        //LoadMaterial(id).SetColor("_EmissiveColor", ((Vector4)ColorDic[id])*2f);
-        //Debug.Log(colorMats[id].GetColor("_EmissiveColor"));
+        if(!colorState[id])
+        {
+            LoadMaterial(id, true).SetColor("_EmissiveColor", (PalatteToColor(id))*3f);
+            LoadMaterial(id, false).SetColor("_EmissiveColor", (PalatteToColor(id))*1.1f);
+            colorState[id] = true;
 
+        }
         if(onColorEvoke != null)
         {
             onColorEvoke(id);
@@ -59,11 +89,11 @@ public class ColorManager : MonoBehaviour
 
     public void colorDisable(int id)
     {
-        Debug.Log("color disable "+id);
         if(!colorState[id])
             return;
         colorState[id] = false;
-        //LoadMaterial(id).SetColor("_EmissiveColor", ColorDic[id]);
+        LoadMaterial(id, true).SetColor("_EmissiveColor", PalatteToColor(id));
+        LoadMaterial(id, false).SetColor("_EmissiveColor", PalatteToColor(id));
         if(onColorDisable != null)
         {
             onColorDisable(id);

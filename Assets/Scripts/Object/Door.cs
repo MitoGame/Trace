@@ -5,68 +5,91 @@ using DG.Tweening;
 
 public class Door : MonoBehaviour
 {
-    Vector3 pos1 = new Vector3(15.63f,-2.45f,-10.72f);
-    Vector3 pos2 = new Vector3(15.63f,-2.45f,-10.35f);
-    Vector3 pos3 = new Vector3(13.82f,-2.45f,-10.35f);
+    //Vector3 pos1 = new Vector3(15.63f,-2.45f,-10.72f);
+    //Vector3 pos2 = new Vector3(15.63f,-2.45f,-10.35f);
+    Vector3 moveToward = new Vector3(1.5f, 0f, 0f);
+    Vector3 endPos;
+    Vector3 originPos;
+    
 
     public bool is_opened = false;
     public bool moving = false;
 
     public GameObject childDoor;
-    const float openTime = 1f;
-    const float closeTime = 0.5f;
+    const float moveSpeed = 20f;
+    public bool closeable = true;
+
+    
+    public MeshRenderer mr;
+    public int color_code;
+
+    void setcolor(int code)
+    {
+        if(color_code == code)
+            return;
+        //Debug.Log(code);
+        //mr.material = ColorManager.LoadMaterial(code, true);
+        mr.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(code));
+        color_code = code;
+
+    }
 
     public void setopen()
     {
-        // Debug.Log("setopen");
-
-        if(is_opened || moving)
+        if(is_opened)
             return;
-        else{
+        else
             is_opened = true;
-            moving = true;
-        }
+        mr.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(color_code) * 4f);
+        StopAllCoroutines();
         StartCoroutine(openDoor());
     }
 
     public void setclose()
     {
-        // Debug.Log("setclose");
-        if(!is_opened || moving)
+        if(!closeable)
             return;
-        else{
+        if(!is_opened)
+            return;
+        else
             is_opened = false;
-            moving = true;
-        }
+        mr.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(color_code));
+        StopAllCoroutines();
         StartCoroutine(closeDoor());
     }
 
     IEnumerator openDoor()
     {
-        // childDoor.transform.DOLocalMove(pos2, 1f);
-        childDoor.transform.DOLocalMove(pos3, openTime);
+        moving = true;
+        float openTime = (endPos-transform.localPosition).magnitude / moveSpeed;
+        childDoor.transform.DOLocalMove(endPos, openTime);
         yield return new WaitForSeconds(openTime);
         moving = false;
     }
 
     IEnumerator closeDoor()
     {
-        // childDoor.transform.DOLocalMove(pos2, .5f);
-        childDoor.transform.DOLocalMove(pos1, closeTime);
+        float closeTime = (originPos-transform.localPosition).magnitude / moveSpeed;
+        childDoor.transform.DOLocalMove(originPos, closeTime);
         yield return new WaitForSeconds(closeTime);
         moving = false;
     }
 
-    void Start()
+    void Awake()
     {
-        
+        originPos = childDoor.transform.localPosition;
+        endPos = originPos + moveToward;
+        /* dye[] components = GetComponentsInChildren<dye>();
+        //Debug.Log(components.Length);
+        foreach(var a in components)
+            a.onDyeEvoke += setcolor; */
+        //setcolor(0);
     }
 
-    void Update()
+    void Start()
     {
-        if(Input.GetKeyDown(KeyCode.J))
-            setopen();
-        if(Input.GetKeyDown(KeyCode.K))
-            setclose();
+        mr.material = new Material(Shader.Find("HDRP/Lit"));
+        mr.material.SetColor("_BaseColor", Color.black);
+        mr.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(color_code));
     }
 }

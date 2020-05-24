@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class testing : MonoBehaviour
 {
-    public Camera maincamera;
-    public Camera recordcamera;
+    public GameObject lights;
 
     void Start()
     {
@@ -14,10 +13,9 @@ public class testing : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.L))
         {
-            maincamera.enabled = ! maincamera.enabled;
-            recordcamera.enabled = ! recordcamera.enabled;
+            lights.SetActive(!lights.activeSelf);
         }
     }
 }

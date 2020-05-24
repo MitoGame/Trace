@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 5ffdeb57cdb70de44a65dff4bd22641d
+guid: 845d8f14ec5a38e41ad055eaff8c69d0
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brass - Polished
-    second: {fileID: 2100000, guid: 7ef9d57e14b5e5849b14ff77cb9740cb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Paint - Metallic (Black)
-    second: {fileID: 2100000, guid: cef01ea583473f647ab2398ab42fa4ff, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Paint - Metallic (Green)
-    second: {fileID: 2100000, guid: 438e68a74e1ae904ebc8bb4543b30452, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Powder Coat (White)
-    second: {fileID: 2100000, guid: b278b196b37837446b26f2914b166ba8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Steel - Satin
-    second: {fileID: 2100000, guid: 454867183700e4841aaa803da836a2dc, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

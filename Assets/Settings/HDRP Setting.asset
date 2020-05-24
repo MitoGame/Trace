@@ -221,11 +221,11 @@ MonoBehaviour:
     supportRayTracing: 0
     supportedRaytracingTier: 2
     lightLoopSettings:
-      cookieSize: 128
+      cookieSize: 512
       cookieTexArraySize: 16
-      pointCookieSize: 128
+      pointCookieSize: 256
       cubeCookieTexArraySize: 16
-      planarReflectionProbeCacheSize: 16
+      planarReflectionProbeCacheSize: 2
       planarReflectionTextureSize: 64
       reflectionProbeCacheSize: 64
       reflectionCubemapSize: 256

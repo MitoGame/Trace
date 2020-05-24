@@ -11,17 +11,27 @@ public class GunControll : MonoBehaviour
     public float range = 100f;
     public LayerMask shootableLayer;
     public Transform shootPos;
-    int gunColor = 1;
+    public int gunColor = 0;
     public MeshRenderer mr;
+
+    SparkControll gunSpark;
+
+    public static GunControll instance;
 
     void Awake()
     {
+        if(instance!=null)
+            Debug.Log("gun instance error");
+        instance = this;
         gunAnimator = GetComponent<Animator>();
+        resetMat();
+        
     }
 
     void Start()
     {
-        
+        gunSpark = (Instantiate(ResourceManager.RManager.SpartVFX, shootPos.position, Quaternion.LookRotation(transform.forward))).GetComponent<SparkControll>();
+        gunSpark.transform.parent = shootPos;
     }
 
     void Update()
@@ -34,10 +44,10 @@ public class GunControll : MonoBehaviour
             }   
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        /*if(Input.GetKeyDown(KeyCode.R))
         {
             resetAllDoll();
-        }
+        }*/
 
         if(Input.GetMouseButtonDown(1))
         {
@@ -83,25 +93,23 @@ public class GunControll : MonoBehaviour
             target = FPSCam.transform.position + distance * FPSCam.transform.forward;
         }
         Bullet temp = (Instantiate(Resources.Load("bullet"), shootPos.position, Quaternion.identity) as GameObject).GetComponent<Bullet>();
-        temp.setBullet(distance, target, gunColor);
-        //if(hit.distance != 0f)
-        //{
-        //    Instantiate(Resources.Load("shadow"), hit.point, Quaternion.identity);
-        //}
+        temp.setBullet(distance, target, gunColor, hit.normal);
+        gunSpark.SetColor(gunColor);
+        gunSpark.spark.Play();
     }
 
     void ChangeMaterial()
     {
         gunColor++;
-        if(gunColor > 4)
-            gunColor = 1;
+        if(gunColor > ColorManager.NUM)
+            gunColor = 0;
         resetMat();
     }
 
     void resetMat()
     {
         Material[] mat = mr.materials;
-        mat[0] = ColorManager.LoadMaterial(gunColor);
+        mat[0] = ColorManager.LoadMaterial(gunColor, false);
         mr.materials = mat;
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - tap
   - bullet
   - Ground
+  - Base
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - ground
   - tap
   - crate
-  - 
-  - 
-  - 
+  - dyable
+  - door
+  - player
   - 
   - 
   - 

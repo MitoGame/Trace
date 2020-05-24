@@ -12,7 +12,7 @@ public struct posTape
 public class Recorder : MonoBehaviour
 {
     List<posTape> tape1;
-    List<GameObject> shadows;
+    //List<GameObject> shadows;
     bool recording = false;
     public float deltaTime = .3f;
     public float shadowDelta = 2f;
@@ -24,6 +24,11 @@ public class Recorder : MonoBehaviour
     LineRenderer lineRenderer;
     public Material lineMaterial;
     public float lineHeightY = 1.6f;
+
+    public Transform drone;
+
+    public DollControl currentDoll = null;
+    //Material currentMat = null;
     
 
     public bool exist = false;
@@ -50,17 +55,17 @@ public class Recorder : MonoBehaviour
                 shadowTimer = 0f;
             }
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        /* if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             setRecord();
-        }
+        } */
     }
 
-    void setRecord()
+    public void setRecord()
     {
         if(recording)               //end record
         {
-            shadows.Add(Instantiate(shadow, transform.position, transform.rotation) as GameObject);
+            //shadows.Add(Instantiate(shadow, transform.position, transform.rotation) as GameObject);
             recordOnce(timer);
             endRecord();
             recording = false;
@@ -69,39 +74,48 @@ public class Recorder : MonoBehaviour
         {
             newLineRenderer();
             tape1 = new List<posTape>();
-            shadows = new List<GameObject>();
-            shadows.Add(Instantiate(shadow, transform.position, transform.rotation) as GameObject);
+            //shadows = new List<GameObject>();
+            //shadows.Add(Instantiate(shadow, transform.position, transform.rotation) as GameObject);
             recording = true;
         }
     }
 
     void endRecord()
     {
-        GameObject doll = Instantiate(Resources.Load("Doll"), tape1[0].pos, tape1[0].rot) as GameObject;
+        /* if(currentDoll != null)
+        {
+            Destroy(currentDoll);
+        } */
+        GameObject doll = Instantiate(Resources.Load("Doll2"), tape1[0].pos, tape1[0].rot) as GameObject;
+        currentDoll = doll.GetComponent<DollControl>();
         doll.GetComponent<DollControl>().tape1 = tape1;
-        doll.GetComponent<DollControl>().shadows = shadows;
+        //doll.GetComponent<DollControl>().shadows = shadows;
         doll.GetComponent<DollControl>().line = lineRenderer.gameObject;
         exist = true;
     }
 
     void newLineRenderer()
     {
+        lineMaterial = new Material(Shader.Find("HDRP/Lit"));
+        lineMaterial.SetColor("_BaseColor", Color.black);
         GameObject tmp = new GameObject();
         tmp.AddComponent<LineRenderer>();
         lineRenderer = tmp.GetComponent<LineRenderer>();
-        lineRenderer.material = lineMaterial;
-        lineRenderer.startWidth = .2f;;
-        lineRenderer.positionCount = 0;
+        lineRenderer.sharedMaterial = lineMaterial;
+        lineRenderer.startWidth = .02f;;
+        lineRenderer.positionCount = 1;
+        lineRenderer.SetPosition(0, transform.position + Vector3.up*lineHeightY);
         lineRenderer.generateLightingData = true;
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        lineRenderer.enabled = false;
     }
 
     void recordOnce(float timer)
     {
         posTape tmp = new posTape();
         tmp.deltaTime = timer;
-        tmp.pos = transform.position;
-        tmp.rot = transform.rotation;
+        tmp.pos = drone.position;
+        tmp.rot = drone.rotation;
         tape1.Add(tmp);
         lineRenderer.positionCount+=1;
         lineRenderer.SetPosition(lineRenderer.positionCount-1, transform.position + Vector3.up*lineHeightY);
