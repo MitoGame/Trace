@@ -111,7 +111,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TRANS: 0.1
+    - _TRANS: 0.6
     - _Threshold: 0.56
     - _UVSec: 0
     - _ZWrite: 1
@@ -121,7 +121,7 @@ Material:
     - Color_42B5EE95: {r: 0, g: 1, b: 0.9690397, a: 0}
     - Color_452840B: {r: 0.1609114, g: 0.2831151, b: 0.3018868, a: 0}
     - Color_5CBFBEC2: {r: 0.3093628, g: 0.7909318, b: 0.8301887, a: 0}
-    - Color_602AF2B7: {r: 1, g: 1, b: 1, a: 0}
+    - Color_602AF2B7: {r: 0, g: 0, b: 0, a: 0}
     - Color_97330EB9: {r: 0.2723389, g: 0.6460285, b: 0.6792453, a: 0}
     - Color_A08449EA: {r: 0, g: 11.984314, b: 11.984314, a: 0}
     - Color_E6373C32: {r: 24.251463, g: 3.725184, b: 2.1734796, a: 0}
@@ -131,7 +131,7 @@ Material:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EdgeColor: {r: 0, g: 0.006896496, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emission_Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Emission_Color: {r: 0, g: 31.999996, b: 21.780104, a: 1}
     - _GlowColor: {r: 0, g: 0.5, b: 1, a: 1}
     - _HighlightColor: {r: 0.14509805, g: 0.39494622, b: 0.78431374, a: 1}
     - _MainColor: {r: 0, g: 0, b: 0, a: 1}

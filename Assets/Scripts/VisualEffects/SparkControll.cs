@@ -20,7 +20,7 @@ public class SparkControll : MonoBehaviour
 
     public void SetColor(int code)
     {
-        Color hdr = ColorManager.PalatteToColor(code) / 4f;
+        Color hdr = ColorManager.PalatteToColor(code);
         GradientColorKey[] keys = sparkColor.colorKeys;
         keys[0] = new GradientColorKey(hdr, sparkColor.colorKeys[0].time);
         sparkColor.SetKeys(keys, sparkColor.alphaKeys);

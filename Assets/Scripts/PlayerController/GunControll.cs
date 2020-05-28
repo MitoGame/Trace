@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunControll : MonoBehaviour
 {
-    float slootInterval = .2f;
+    //float slootInterval = .2f;
     float timing;
     Animator gunAnimator;
     public Camera FPSCam;

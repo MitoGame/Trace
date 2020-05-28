@@ -1728,7 +1728,7 @@ VisualEffectResource:
       tmp_bf, tmp_bf);\n            float3 tmp_bh = tmp_z * tmp_bg;\n           
       SetAttribute_E629755( /*inout */attributes.velocity, tmp_bh);\n        }\n       
       {\n            SetAttribute_F01429A3( /*inout */attributes.lifetime,  /*inout
-      */attributes.seed, (float)0, (float)0.5);\n        }\n        {\n           
+      */attributes.seed, (float)0, (float)1);\n        }\n        {\n           
       VelocityRandomize_18D( /*inout */attributes.velocity,  /*inout */attributes.direction, 
       /*inout */attributes.seed, (float)6, (float)0.483727992);\n        }\n       
       {\n            SetAttribute_3278B543( /*inout */attributes.size,  /*inout */attributes.seed,
@@ -2439,66 +2439,66 @@ VisualEffectResource:
         data[1]: -1
         data[2]: -1
         data[3]: 13
-      - op: 1
-        valueIndex: 31
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: 1
       - op: 56
-        valueIndex: 32
+        valueIndex: 31
         data[0]: 13
         data[1]: -1
         data[2]: -1
         data[3]: 0
+      - op: 1
+        valueIndex: 35
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 1
       - op: 1
         valueIndex: 36
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 1
-      - op: 3
-        valueIndex: 37
-        data[0]: 14
-        data[1]: 14
-        data[2]: 14
-        data[3]: -1
       - op: 1
-        valueIndex: 40
+        valueIndex: 37
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 14
       - op: 1
-        valueIndex: 41
+        valueIndex: 38
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 1
       - op: 1
-        valueIndex: 42
+        valueIndex: 39
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 13
+      - op: 3
+        valueIndex: 40
+        data[0]: 15
+        data[1]: 15
+        data[2]: 15
+        data[3]: -1
       - op: 1
         valueIndex: 43
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 3
-      - op: 57
-        valueIndex: 46
-        data[0]: 18
-        data[1]: -1
-        data[2]: -1
-        data[3]: 0
       - op: 1
-        valueIndex: 47
+        valueIndex: 46
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 1
+      - op: 6
+        valueIndex: 47
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: -1
       - op: 1
         valueIndex: 48
         data[0]: -1
@@ -2507,7 +2507,7 @@ VisualEffectResource:
         data[3]: 3
       - op: 56
         valueIndex: 51
-        data[0]: 20
+        data[0]: 19
         data[1]: -1
         data[2]: -1
         data[3]: 1
@@ -2541,12 +2541,12 @@ VisualEffectResource:
         data[1]: -1
         data[2]: -1
         data[3]: 2
-      - op: 6
+      - op: 57
         valueIndex: 62
-        data[0]: -1
+        data[0]: 17
         data[1]: -1
         data[2]: -1
-        data[3]: -1
+        data[3]: 0
       - op: 1
         valueIndex: 63
         data[0]: -1
@@ -2575,13 +2575,13 @@ VisualEffectResource:
           m_Value: 3.3
         - m_ExpressionIndex: 12
           m_Value: 0.7
-        - m_ExpressionIndex: 14
+        - m_ExpressionIndex: 15
           m_Value: 0
         - m_ExpressionIndex: 16
           m_Value: 1
-        - m_ExpressionIndex: 19
+        - m_ExpressionIndex: 18
           m_Value: 1
-        - m_ExpressionIndex: 23
+        - m_ExpressionIndex: 22
           m_Value: 0.02
         - m_ExpressionIndex: 26
           m_Value: 0.005
@@ -2594,7 +2594,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 29
           m_Value: {x: 0, y: 0}
         - m_ExpressionIndex: 30
-          m_Value: {x: 50, y: 60}
+          m_Value: {x: 80, y: 90}
       m_Vector3f:
         m_Array:
         - m_ExpressionIndex: 21
@@ -2638,7 +2638,7 @@ VisualEffectResource:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
-        - m_ExpressionIndex: 20
+        - m_ExpressionIndex: 19
           m_Value:
             serializedVersion: 2
             m_Curve:
@@ -2665,7 +2665,7 @@ VisualEffectResource:
             m_RotationOrder: 4
       m_Gradient:
         m_Array:
-        - m_ExpressionIndex: 18
+        - m_ExpressionIndex: 17
           m_Value:
             serializedVersion: 2
             key0: {r: 1.4431373, g: 6.4313726, b: 5.6156864, a: 0}
@@ -2703,11 +2703,11 @@ VisualEffectResource:
         m_Array: []
     m_ExposedExpressions:
     - nameId: _EMISSIVE
-      index: 18
+      index: 17
     - nameId: end velocity
-      index: 14
+      index: 15
     - nameId: size
-      index: 19
+      index: 18
     m_Buffers:
     - type: 1
       size: 44352
@@ -2912,9 +2912,9 @@ VisualEffectResource:
       temporaryBuffers: []
       values:
       - nameId: uniform_b
-        index: 17
+        index: 20
       - nameId: deltaTime_b
-        index: 31
+        index: 23
       params: []
       processor: {fileID: 0}
       shaderSourceIndex: 1
@@ -2925,11 +2925,11 @@ VisualEffectResource:
       temporaryBuffers: []
       values:
       - nameId: gradient_b
-        index: 22
+        index: 31
       - nameId: uniform_c
-        index: 19
+        index: 18
       - nameId: uniform_d
-        index: 15
+        index: 14
       - nameId: uniform_e
         index: 1
       - nameId: mainTexture
@@ -7362,7 +7362,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 1
     m_Space: 2147483647
   m_Property:
     name: B
@@ -10637,7 +10637,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":50.0,"y":60.0}'
+      m_SerializableObject: '{"x":80.0,"y":90.0}'
     m_Space: 2147483647
   m_Property:
     name: Count

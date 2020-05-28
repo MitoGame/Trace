@@ -17,13 +17,9 @@ public class TmpCamera : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            b.SetActive(false);
-            a.SetActive(true);
-        }
-        if(Input.GetKeyUp(KeyCode.P))
-        {
-            b.SetActive(true);
-            a.SetActive(false);
+            b.SetActive(!b.activeSelf);
+            FindObjectOfType<FPController>().enabled = ! FindObjectOfType<FPController>().enabled;
+            a.SetActive(!a.activeSelf);
         }
     }
 }

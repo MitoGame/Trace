@@ -12,14 +12,14 @@ public class ResourceManager : MonoBehaviour
 
     public int MaxRedScale = 10;
 
-    public static float maxCamDistance = 2.52f;
+    public static float maxCamDistance = 3f;
 
     void Start()
     {
-        /* if(RManager != null)
+        if(RManager != null)
             Destroy(gameObject);
         RManager = this;
-        DontDestroyOnLoad(gameObject); */
+        DontDestroyOnLoad(gameObject);
 
         publicSpark = Instantiate(LargeSpark, Vector3.zero, Quaternion.identity).GetComponent<SparkControll>();
     }

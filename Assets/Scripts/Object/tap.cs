@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class tap : MonoBehaviour
@@ -7,12 +8,14 @@ public class tap : MonoBehaviour
 
     public GameObject coreTap;
     Vector3 boxPos = new Vector3(0f,0.15f,0f);
-    Vector3 halfEx = new Vector3(0.5f, .05f, .5f);
+    Vector3 halfEx = new Vector3(0.6f, .05f, .6f);
     public int colorCode;
     public MeshRenderer dyeMesh;
     public bool state = false;
 
-    public Door[] doors;
+
+    public event Action onTapEvoke;
+    public event Action onTapDisable;
 
     List<Collision> touchingObject = new List<Collision>();
 
@@ -33,10 +36,8 @@ public class tap : MonoBehaviour
         if(state)
             return;
         dyeMesh.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(colorCode)*4f);
-        foreach(var door in doors)
-        {
-            door.setopen();
-        }
+        if(onTapEvoke != null)
+            onTapEvoke();
         state = true;
         
         
@@ -48,10 +49,8 @@ public class tap : MonoBehaviour
             return;
         dyeMesh.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(colorCode));
         state = false;
-        foreach(var door in doors)
-        {
-            door.setclose();
-        }
+        if(onTapDisable != null)
+            onTapDisable();
         //ColorManager.instance.colorDisable(colorCode);
     }
 

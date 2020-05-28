@@ -50,11 +50,10 @@ MonoBehaviour:
   colorCode: 0
   dyeMesh: {fileID: 235353824407937224}
   state: 0
-  doors: []
   controlled: 0
   evokeTapLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 24576
 --- !u!65 &991776705674582043
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class resetCube : MonoBehaviour
 {
+    public GameObject butterflies;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,10 @@ public class resetCube : MonoBehaviour
         if(other.GetComponent<FPController>()!=null)
         {
             other.GetComponent<FPController>().recorderModeActivate(false);
+            if(!butterflies.activeSelf)
+            {
+                butterflies.SetActive(true);
+            }
         }
     }
 }

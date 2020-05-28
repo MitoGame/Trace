@@ -122,7 +122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6801163771547710000}
   m_LocalRotation: {x: 9.0852376e-10, y: -0, z: 1.0079327e-12, w: 1}
-  m_LocalPosition: {x: 0, y: 1.757, z: -2.52}
+  m_LocalPosition: {x: 0, y: 2.11, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6801163772020480206}
@@ -152,7 +152,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -451,7 +451,7 @@ CharacterController:
   m_Height: 1.21
   m_Radius: 0.36
   m_SlopeLimit: 45
-  m_StepOffset: 0.7
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.55, z: 0}
@@ -479,7 +479,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 7936
   HorizontalVelocity: {x: 0, y: 0, z: 0}
-  maxspeed: 3
+  maxspeed: 5
   grounddelay: 0.1
   cameraCollideLayer:
     serializedVersion: 2

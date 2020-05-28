@@ -23,6 +23,8 @@ public class Door : MonoBehaviour
     public MeshRenderer mr;
     public int color_code;
 
+    public tap RootTap;
+
     void setcolor(int code)
     {
         if(color_code == code)
@@ -84,10 +86,13 @@ public class Door : MonoBehaviour
         foreach(var a in components)
             a.onDyeEvoke += setcolor; */
         //setcolor(0);
+        
     }
 
     void Start()
     {
+        RootTap.onTapEvoke += setopen;
+        RootTap.onTapDisable += setclose;
         mr.material = new Material(Shader.Find("HDRP/Lit"));
         mr.material.SetColor("_BaseColor", Color.black);
         mr.material.SetColor("_EmissiveColor", ColorManager.PalatteToColor(color_code));

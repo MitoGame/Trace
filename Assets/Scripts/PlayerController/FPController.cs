@@ -25,12 +25,23 @@ public class FPController : MonoBehaviour
     GunControll gunController;
 
     bool recorderMode = false;
+
+    public static FPController instance;
+
+    public void SetMove(Vector3 a)
+    {
+       controller.Move(a);
+    }
+
     
 
     void Awake()
     {
+        instance = this;
+
         
     }
+
 
     void jumpAndGravity()
     {
@@ -109,13 +120,18 @@ public class FPController : MonoBehaviour
         GetComponent<Recorder>().setRecord(); */
     }
 
+    
+
     void resetPlayer()
     {
+
         StartCoroutine(resetPlayerIE());
     }
 
     public void recorderModeActivate(bool activated)
     {
+        if(recorderMode == activated)
+            return;
         recorderMode = activated;
         if(activated)
         {
@@ -137,6 +153,7 @@ public class FPController : MonoBehaviour
     IEnumerator resetPlayerIE()
     {
         drone.gameObject.SetActive(false);
+        ResourceManager.RManager.setPublicSpark(transform.position, Vector3.up, 0,1);
         GetComponent<Recorder>().setRecord();
         yield return new WaitForSeconds(.5f);
         GameObject spawn = GameObject.Find("SPAWN");

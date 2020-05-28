@@ -10,7 +10,7 @@ public class RespawnPoint : MonoBehaviour
     public float energySecond = 10f;
 
     Vector3 boxPoint = new Vector3(0f, 0.04f, 0f);
-    Vector3 boxSize = new Vector3(0.1f, 0.2f, 0.1f);
+    Vector3 boxSize = new Vector3(0.4f, 0.2f, 0.4f);
 
     GameObject player;
 
@@ -36,7 +36,7 @@ public class RespawnPoint : MonoBehaviour
     public void checkSpawn()
     {
         Collider[] spawnCheck = Physics.OverlapBox(transform.position + boxPoint, boxSize, Quaternion.identity, LayerMask.GetMask("player"));
-        Debug.Log(spawnCheck.Length);
+        //  Debug.Log(spawnCheck.Length);
         if(spawnCheck.Length > 0)
         {
             StartCoroutine(activateIE());
